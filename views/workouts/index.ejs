@@ -9,9 +9,12 @@
 </head>
 
 <body>
+
     <%- include('../partials/_navbar.ejs') %>
         <div class="all-apps-body">
             <div class="all-apps-header">
+
+
                 <h1>My Workout Session</h1>
 
             </div>
@@ -23,6 +26,10 @@
                     </li>
                     <% }) %>
             </ul>
+            <div class="image-under-list">
+                <img src="https://wallpapercave.com/wp/wp11550221.jpg" alt="Muscular Saiyan Goku">
+
+            </div>
             <div class="floating-add-btn">
                 <a class="add-app-link" href="/users/<%= user._id %>/workouts/new">
                     Add a New Workout
