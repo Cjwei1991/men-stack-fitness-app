@@ -1,26 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/show.css" />
+
     <title>
-        <%= user.username %>'s Pantry
+        <%= user.username %>'s Workouts
     </title>
 </head>
 
 <body>
     <%- include('../partials/_navbar.ejs') %>
+
         <h1>
-            <%= user.username %>'s Pantry
+            <%= user.username %>'s Workout Log
         </h1>
-        <ul>
-            <% user.pantries.forEach(item=> { %>
-                <li>
-                    <%= item.name %>
-                </li>
+
+        <% if (user.workouts.length===0) { %>
+            <div>No workouts logged yet.</div>
+            <% } else { %>
+
+                <h2>Workout Sessions</h2>
+                <ul>
+                    <% user.workouts.forEach(workout=> { %>
+                        <li>
+                            <div style="margin-bottom: 20px;">
+                                <a href="/userslist/<%= user._id %>/workouts/<%= workout._id %>">
+                                    <%= workout.date.toDateString() %>
+                                </a><br>
+                            </div>
+                        </li>
+                </ul>
+
+
+
+
                 <% }) %>
-        </ul>
+
+                    <h2>Summary</h2>
+
+                    <div class="summary-container">
+                        <div class="summary-box">
+                            <h3>🏋️‍♂️ Weight Training</h3>
+                            <div>BenchPress Max Weight: <%= maxWeight.BenchPress %> kg</div>
+                            <div>Deadlift Max Weight: <%= maxWeight.Deadlift %> kg</div>
+                            <div>Squat Max Weight: <%= maxWeight.Squat %> kg</div>
+                        </div>
+
+                        <div class="summary-box">
+                            <h3>💪 Bodyweight Training</h3>
+                            <div>Pushup Max Reps: <%= maxBodyReps.Pushup %>
+                            </div>
+                            <div>Pullup Max Reps: <%= maxBodyReps.Pullup %>
+                            </div>
+                            <div>Abs Max Reps: <%= maxBodyReps.Abs %>
+                            </div>
+                        </div>
+
+                        <div class="summary-box">
+                            <h3>🏃‍♂️ Cardio</h3>
+                            <div>Treadmills Max Calories Burn: <%= maxCardioCalories.Treadmills %> kcal</div>
+                            <div>Bikes Max Calories Burn: <%= maxCardioCalories.Bikes %> kcal</div>
+                            <div>StairClimbing Max Calories Burn: <%= maxCardioCalories.StairClimbing %> kcal</div>
+                        </div>
+                    </div>
+
+                    <% } %>
+
+
 </body>
 
 </html>

@@ -8,8 +8,8 @@ router.get('/', async (req, res) => {
     try {
         const currentUser = await User.findById(req.session.user._id);
 
-        res.render('foods/index.ejs', {
-            pantries: currentUser.pantries,
+        res.render('workouts/index.ejs', {
+            workouts: currentUser.workouts,
         });
     } catch (error) {
         console.log(error);
@@ -17,19 +17,19 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/new', async (req, res) => {
-    res.render('foods/new.ejs');
+router.get('/new', async (req, res) => { 
+    res.render('workouts/new.ejs');
 });
 
 router.post('/', async (req, res) => {
     try {
         const currentUser = await User.findById(req.session.user._id);
         
-        currentUser.pantries.push(req.body);
+        currentUser.workouts.push(req.body);
       
         await currentUser.save();
         
-        res.redirect(`/users/${currentUser._id}/foods`);
+        res.redirect(`/users/${currentUser._id}/workouts`);
     } catch (error) {
         
         console.log(error);
@@ -38,15 +38,16 @@ router.post('/', async (req, res) => {
 });
 
 
-router.get('/:pantryId', async (req, res) => {
+router.get('/:workoutId', async (req, res) => {
     try {
     
       const currentUser = await User.findById(req.session.user._id);
       
-      const pantry = currentUser.pantries.id(req.params.pantryId);
+      const workout = currentUser.workouts.id(req.params.workoutId);
    
-      res.render('foods/show.ejs', {
-        pantry: pantry,
+      res.render('workouts/show.ejs', {
+        workout: workout,
+        user: currentUser,
       });
     } catch (error) {
      
@@ -55,16 +56,16 @@ router.get('/:pantryId', async (req, res) => {
     }
   });
   
-  router.delete('/:pantryId', async (req, res) => {
+  router.delete('/:workoutId', async (req, res) => {
     try {
       
       const currentUser = await User.findById(req.session.user._id);
       
-      currentUser.pantries.id(req.params.pantryId).deleteOne();
+      currentUser.workouts.id(req.params.workoutId).deleteOne();
      
       await currentUser.save();
       
-      res.redirect(`/users/${currentUser._id}/foods`);
+      res.redirect(`/users/${currentUser._id}/workouts`);
     } catch (error) {
       
       console.log(error);
@@ -73,12 +74,12 @@ router.get('/:pantryId', async (req, res) => {
   });
 
 
-  router.get('/:pantryId/edit', async (req, res) => {
+  router.get('/:workoutId/edit', async (req, res) => {
     try {
       const currentUser = await User.findById(req.session.user._id);
-      const pantry = currentUser.pantries.id(req.params.pantryId);
-      res.render('foods/edit.ejs', {
-        pantry: pantry,
+      const workout = currentUser.workouts.id(req.params.workoutId);
+      res.render('workouts/edit.ejs', {
+        workout: workout,
       });
     } catch (error) {
       console.log(error);
@@ -87,19 +88,19 @@ router.get('/:pantryId', async (req, res) => {
   });
 
 
-  router.put('/:pantryId', async (req, res) => {
+  router.put('/:workoutId', async (req, res) => {
     try {
       
       const currentUser = await User.findById(req.session.user._id);
       
-      const pantry = currentUser.pantries.id(req.params.pantryId);
+      const workout = currentUser.workouts.id(req.params.workoutId);
     
-      pantry.set(req.body);
+      workout.set(req.body);
       
       await currentUser.save();
       // Redirect back to the show view of the current application
       res.redirect(
-        `/users/${currentUser._id}/foods/${req.params.pantryId}`
+        `/users/${currentUser._id}/workouts/${req.params.workoutId}`
       );
     } catch (error) {
       console.log(error);

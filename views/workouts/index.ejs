@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>My Workout Session</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+        <div class="all-apps-body">
+            <div class="all-apps-header">
+                <h1>My Workout Session</h1>
+
+            </div>
+            <ul>
+                <% workouts.forEach((workout)=>{ %>
+                    <li><a href="/users/<%= user._id %>/workouts/<%= workout._id %>">
+                            Training: <%= workout.date.toDateString() %>
+                        </a>
+                    </li>
+                    <% }) %>
+            </ul>
+            <div class="floating-add-btn">
+                <a class="add-app-link" href="/users/<%= user._id %>/workouts/new">
+                    Add a New Workout
+                </a>
+            </div>
+        </div>
+</body>
+
+</html>

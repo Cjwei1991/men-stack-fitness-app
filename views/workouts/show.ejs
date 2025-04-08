@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/show.css" />
+
+    <title>
+        Workout Session<%= workout.date %>
+    </title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <h1>Workout Details</h1>
+
+        <div class="details-meta">
+            <div><strong>Date:</strong>
+                <%= workout.date.toDateString() %>
+            </div>
+            <div><strong>Bodyweight:</strong>
+                <%= workout.currentbodyweight %> kg
+            </div>
+            <div><strong>Note:</strong>
+                <%= workout.note || 'None' %>
+            </div>
+        </div>
+
+        <div class="details-container">
+
+            <div class="detail-box">
+                <h2>🏋️ Weight Training</h2>
+                <% if (workout.weightTraining.name) { %>
+                    <div><strong>Exercise:</strong>
+                        <%= workout.weightTraining.name %>
+                    </div>
+                    <div><strong>Weight:</strong>
+                        <%= workout.weightTraining.weight %> kg
+                    </div>
+                    <div><strong>Reps:</strong>
+                        <%= workout.weightTraining.reps %>
+                    </div>
+                    <div><strong>Sets:</strong>
+                        <%= workout.weightTraining.sets %>
+                    </div>
+                    <div><strong>Total Volume:</strong>
+                        <%= workout.weightTraining.weight * workout.weightTraining.reps * workout.weightTraining.sets %>
+                            kg
+                    </div>
+                    <% } else { %>
+                        <div>No weight training recorded.</div>
+                        <% } %>
+            </div>
+
+            <div class="detail-box">
+                <h2>💪 Bodyweight Training</h2>
+                <% if (workout.bodyWeightTraining.name) { %>
+                    <div><strong>Exercise:</strong>
+                        <%= workout.bodyWeightTraining.name %>
+                    </div>
+                    <div><strong>Reps:</strong>
+                        <%= workout.bodyWeightTraining.reps %>
+                    </div>
+                    <div><strong>Sets:</strong>
+                        <%= workout.bodyWeightTraining.sets %>
+                    </div>
+                    <div><strong>Total Volume:</strong>
+                        <%= workout.currentbodyweight * workout.bodyWeightTraining.reps *
+                            workout.bodyWeightTraining.sets %> kg
+                    </div>
+                    <% } else { %>
+                        <div>No bodyweight training recorded.</div>
+                        <% } %>
+            </div>
+
+            <div class="detail-box">
+                <h2>🏃 Cardio</h2>
+                <% if (workout.cardio.name) { %>
+                    <div><strong>Exercise:</strong>
+                        <%= workout.cardio.name %>
+                    </div>
+                    <div><strong>Time:</strong>
+                        <%= workout.cardio.time %> minutes
+                    </div>
+                    <div><strong>Calories:</strong>
+                        <%= workout.cardio.calories %> kcal
+                    </div>
+                    <% } else { %>
+                        <div>No cardio recorded.</div>
+                        <% } %>
+            </div>
+        </div>
+
+        <h2>Body Metrics</h2>
+        <% if (user.height && workout.currentbodyweight) { const heightM=user.height / 100; const
+            weightKg=workout.currentbodyweight; const bmi=weightKg / (heightM * heightM); %>
+            <div><strong>BMI:</strong>
+                <%= bmi.toFixed(2) %>
+            </div>
+            <% } else { %>
+                <div>BMI not available — missing height or bodyweight.</div>
+                <% } %>
+
+                    <div class="action-buttons">
+                        <a href="/users/<%= user._id %>/workouts/<%= workout._id %>/edit" class="edit-btn">
+                            Edit this Workout Session
+                        </a>
+                        <form action="/users/<%= user._id %>/workouts/<%= workout._id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="delete-btn">Delete this Workout Session</button>
+                        </form>
+                    </div>
+</body>
+
+</html>

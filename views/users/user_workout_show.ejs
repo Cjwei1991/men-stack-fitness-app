@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/show.css" />
+
+    <title>Workout Details</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <h1>Workout Details — <%= workout.date.toDateString() %>
+        </h1>
+
+        <div><strong>Bodyweight:</strong>
+            <%= workout.currentbodyweight %> kg
+        </div>
+
+        <div class="details-container">
+
+            <% if (workout.weightTraining?.name) { %>
+                <div class="detail-box">
+                    <h3>🏋️ Weight Training</h3>
+                    <div><strong>Exercise:</strong>
+                        <%= workout.weightTraining.name %>
+                    </div>
+                    <div><strong>Weight:</strong>
+                        <%= workout.weightTraining.weight %> kg
+                    </div>
+                    <div><strong>Reps:</strong>
+                        <%= workout.weightTraining.reps %>
+                    </div>
+                    <div><strong>Sets:</strong>
+                        <%= workout.weightTraining.sets %>
+                    </div>
+                </div>
+                <% } %>
+
+                    <% if (workout.bodyWeightTraining?.name) { %>
+                        <div class="detail-box">
+                            <h3>💪 Bodyweight Training</h3>
+                            <div><strong>Exercise:</strong>
+                                <%= workout.bodyWeightTraining.name %>
+                            </div>
+                            <div><strong>Reps:</strong>
+                                <%= workout.bodyWeightTraining.reps %>
+                            </div>
+                            <div><strong>Sets:</strong>
+                                <%= workout.bodyWeightTraining.sets %>
+                            </div>
+                        </div>
+                        <% } %>
+
+                            <% if (workout.cardio?.name) { %>
+                                <div class="detail-box">
+                                    <h3>🏃 Cardio</h3>
+                                    <div><strong>Exercise:</strong>
+                                        <%= workout.cardio.name %>
+                                    </div>
+                                    <div><strong>Time:</strong>
+                                        <%= workout.cardio.time %> minutes
+                                    </div>
+                                    <div><strong>Calories:</strong>
+                                        <%= workout.cardio.calories %> kcal
+                                    </div>
+                                </div>
+                                <% } %>
+
+        </div>
+
+        <div class="note-box">
+            <strong>Note:</strong>
+            <%= workout.note || 'None' %>
+        </div>
+
+
+</body>
+
+</html>

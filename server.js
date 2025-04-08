@@ -14,11 +14,12 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 
 
 const authController = require('./controllers/auth.js');
-const foodsController = require('./controllers/foods.js');
+const workoutsController = require('./controllers/workouts.js');
 const usersController = require('./controllers/users.js')
 
 
 const port = process.env.PORT ? process.env.PORT : '3000';
+const path = require('path');
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -29,6 +30,9 @@ mongoose.connection.on('connected', () => {
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -43,7 +47,7 @@ app.get('/', (req, res) => {
   // Check if the user is signed in
   if (req.session.user) {
     // Redirect signed-in users to their applications index
-    res.redirect(`/users/${req.session.user._id}/foods`);
+    res.redirect(`/users/${req.session.user._id}/workouts`);
   } else {
     // Show the homepage for users who are not signed in
     res.render('home.ejs');
@@ -52,7 +56,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authController);
 app.use(isSignedIn);
-app.use('/users/:userId/foods', foodsController);
+app.use('/users/:userId/workouts', workoutsController);
 app.use('/userslist', usersController)
 
 

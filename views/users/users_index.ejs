@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Our Community</title>
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>All Users</h1>
+    <h1>Our Community</h1>
     <ul>
         <% users.forEach(user => { %>
             <li><a href="userslist/<%= user._id %>">

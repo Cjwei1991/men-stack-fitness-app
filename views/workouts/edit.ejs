@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Edit Workout</title>
+</head>
+
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+        <h1>Edit Workout</h1>
+        <div class='form-wrapper'>
+            <form action="/users/<%= user._id %>/workouts/<%= workout._id %>?_method=PUT" method="POST">
+
+                <div>
+                    <label for="currentbodyweight">Current Bodyweight (kg):</label>
+                    <input type="number" id="currentbodyweight" name="currentbodyweight" step="any"
+                        value="<%= workout.currentbodyweight %>">
+                </div>
+
+                <h3>Weight Training</h3>
+                <div>
+                    <label for="weightTrainingName">Exercise:</label>
+                    <select id="weightTrainingName" name="weightTraining.name">
+                        <option value="">-- Select --</option>
+                        <option value="BenchPress" <%=workout.weightTraining.name==='BenchPress' ? 'selected' : '' %>
+                            >Bench
+                            Press</option>
+                        <option value="Deadlift" <%=workout.weightTraining.name==='Deadlift' ? 'selected' : '' %>
+                            >Deadlift
+                        </option>
+                        <option value="Squat" <%=workout.weightTraining.name==='Squat' ? 'selected' : '' %>>Squat
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="weightTrainingWeight">Weight (kg):</label>
+                    <input type="number" id="weightTrainingWeight" name="weightTraining.weight"
+                        value="<%= workout.weightTraining.weight %>">
+                </div>
+                <div>
+                    <label for="weightTrainingReps">Reps:</label>
+                    <input type="number" id="weightTrainingReps" name="weightTraining.reps"
+                        value="<%= workout.weightTraining.reps %>">
+                </div>
+                <div>
+                    <label for="weightTrainingSets">Sets:</label>
+                    <input type="number" id="weightTrainingSets" name="weightTraining.sets"
+                        value="<%= workout.weightTraining.sets %>">
+                </div>
+
+                <h3>Bodyweight Training</h3>
+                <div>
+                    <label for="bodyWeightTrainingName">Exercise:</label>
+                    <select id="bodyWeightTrainingName" name="bodyWeightTraining.name">
+                        <option value="">-- Select --</option>
+                        <option value="Pushup" <%=workout.bodyWeightTraining.name==='Pushup' ? 'selected' : '' %>>Pushup
+                        </option>
+                        <option value="Pullup" <%=workout.bodyWeightTraining.name==='Pullup' ? 'selected' : '' %>>Pullup
+                        </option>
+                        <option value="Abs" <%=workout.bodyWeightTraining.name==='Abs' ? 'selected' : '' %>>Abs</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="bodyWeightTrainingReps">Reps:</label>
+                    <input type="number" id="bodyWeightTrainingReps" name="bodyWeightTraining.reps"
+                        value="<%= workout.bodyWeightTraining.reps %>">
+                </div>
+                <div>
+                    <label for="bodyWeightTrainingSets">Sets:</label>
+                    <input type="number" id="bodyWeightTrainingSets" name="bodyWeightTraining.sets"
+                        value="<%= workout.bodyWeightTraining.sets %>">
+                </div>
+
+                <h3>Cardio</h3>
+                <div>
+                    <label for="cardioName">Exercise:</label>
+                    <select id="cardioName" name="cardio.name">
+                        <option value="">-- Select --</option>
+                        <option value="Treadmills" <%=workout.cardio.name==='Treadmills' ? 'selected' : '' %>>Treadmills
+                        </option>
+                        <option value="Bikes" <%=workout.cardio.name==='Bikes' ? 'selected' : '' %>>Bikes</option>
+                        <option value="StairClimbing" <%=workout.cardio.name==='StairClimbing' ? 'selected' : '' %>
+                            >Stair
+                            Climbing</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cardioTime">Time (minutes):</label>
+                    <input type="number" id="cardioTime" name="cardio.time" value="<%= workout.cardio.time %>">
+                </div>
+                <div>
+                    <label for="cardioCalories">Calories Burned:</label>
+                    <input type="number" id="cardioCalories" name="cardio.calories"
+                        value="<%= workout.cardio.calories %>">
+                </div>
+
+                <div>
+                    <label for="note">Note:</label>
+                    <textarea id="note" name="note" rows="3" cols="50"><%= workout.note %></textarea>
+                </div>
+
+                <div>
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" value="<%= workout.date.toISOString().slice(0, 10) %>">
+                </div>
+
+                <button type="submit">Update Workout</button>
+            </form>
+        </div>
+</body>
+
+</html>
