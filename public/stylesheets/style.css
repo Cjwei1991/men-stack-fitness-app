@@ -37,6 +37,18 @@ body {
     object-position: center;
     z-index: -1;
 }
+.image-under-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  .image-under-list img {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+  }
 
 .main-header {
     font-weight: bold;
